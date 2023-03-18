@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.apnamall.presentation.home.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_homeFragment_to_productDetailFragment"
+            app:destination="@id/productDetailFragment"
+            app:enterAnim="@anim/left"
+            app:exitAnim="@anim/left"
+            app:popEnterAnim="@anim/left"
+            app:popExitAnim="@anim/left" />
+    </fragment>
+    <fragment
+        android:id="@+id/categoryFragment"
+        android:name="com.example.apnamall.presentation.category.CategoryFragment"
+        android:label="fragment_category"
+        tools:layout="@layout/fragment_category">
+
+        <action
+            android:id="@+id/action_categoryFragment_to_detailCategory"
+            app:destination="@id/detailCategory"
+            app:enterAnim="@anim/left"
+            app:exitAnim="@anim/right"
+            app:popEnterAnim="@anim/left"
+            app:popExitAnim="@anim/right" />
+    </fragment>
+    <fragment
+        android:id="@+id/cartFragment"
+        android:name="com.example.apnamall.presentation.cart.CartFragment"
+        android:label="fragment_cart"
+        tools:layout="@layout/fragment_cart" >
+        <action
+            android:id="@+id/action_cartFragment_to_cartItemFragment"
+            app:destination="@id/cartItemFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.apnamall.presentation.profile.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/productDetailFragment"
+        android:name="com.example.apnamall.presentation.product_detail.ProductDetailFragment"
+        android:label="fragment_product_detail"
+        tools:layout="@layout/fragment_product_detail">
+        <argument
+            android:name="selected_item"
+            app:argType="com.example.apnamall.data.model.product.ProductItem" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailCategory"
+        android:name="com.example.apnamall.presentation.category_detail.DetailCategory"
+        android:label="fragment_detail_category"
+        tools:layout="@layout/fragment_detail_category">
+
+        <action
+            android:id="@+id/action_detailCategory_to_productDetailFragment"
+            app:destination="@id/productDetailFragment" />
+        <argument
+            android:name="selected_category"
+            app:argType="com.example.apnamall.data.model.category.CategoryItem" />
+    </fragment>
+    <fragment
+        android:id="@+id/cartItemFragment"
+        android:name="com.example.apnamall.presentation.cart_item.CartItemFragment"
+        android:label="fragment_cart_item"
+        tools:layout="@layout/fragment_cart_item" >
+        <argument
+            android:name="selected_cart_item"
+            app:argType="com.example.apnamall.data.model.order.OrderResponseItem" />
+    </fragment>
+    <fragment
+        android:id="@+id/videoFragment"
+        android:name="com.example.apnamall.presentation.video.VideoFragment"
+        android:label="fragment_video"
+        tools:layout="@layout/fragment_video" >
+        <action
+            android:id="@+id/action_videoFragment_to_productDetailFragment"
+            app:destination="@id/productDetailFragment" />
+    </fragment>
+</navigation>
