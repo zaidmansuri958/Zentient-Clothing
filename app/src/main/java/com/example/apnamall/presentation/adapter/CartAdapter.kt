@@ -6,21 +6,22 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.apnamall.data.model.order.OrderResponseItem
+import com.example.apnamall.data.model.cart.CartResponse
+import com.example.apnamall.data.model.cart.CartResponseItem
 import com.example.apnamall.databinding.CartCardBinding
 
 class CartAdapter : RecyclerView.Adapter<CartViewHolder>() {
-    private val callback = object : DiffUtil.ItemCallback<OrderResponseItem>() {
+    private val callback = object : DiffUtil.ItemCallback<CartResponseItem>() {
         override fun areItemsTheSame(
-            oldItem: OrderResponseItem,
-            newItem: OrderResponseItem
+            oldItem: CartResponseItem,
+            newItem: CartResponseItem
         ): Boolean {
             return oldItem._id == newItem._id
         }
 
         override fun areContentsTheSame(
-            oldItem: OrderResponseItem,
-            newItem: OrderResponseItem
+            oldItem: CartResponseItem,
+            newItem: CartResponseItem
         ): Boolean {
             return oldItem == newItem
         }
@@ -50,8 +51,8 @@ class CartAdapter : RecyclerView.Adapter<CartViewHolder>() {
         }
     }
 
-    private var onItemClickListener: ((OrderResponseItem) -> Unit)? = null
-    fun setOnItemClickListner(listner: (OrderResponseItem) -> Unit) {
+    private var onItemClickListener: ((CartResponseItem) -> Unit)? = null
+    fun setOnItemClickListner(listner: (CartResponseItem) -> Unit) {
         onItemClickListener = listner
     }
 

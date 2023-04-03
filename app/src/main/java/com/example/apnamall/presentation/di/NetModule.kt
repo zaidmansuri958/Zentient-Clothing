@@ -1,7 +1,7 @@
 package com.example.apnamall.presentation.di
 
 import com.example.apnamall.data.api.ApiService
-import com.example.apnamall.data.api.OrderApiService
+import com.example.apnamall.data.api.UserApiService
 import com.example.apnamall.data.util.AuthInterceptor
 import dagger.Module
 import dagger.Provides
@@ -38,11 +38,11 @@ class NetModule {
 
     @Provides
     @Singleton
-    fun provideOrderApiService(
+    fun provideUserApiService(
         retrofitBuilder: Builder,
         okHttpClient: OkHttpClient
-    ): OrderApiService {
-        return retrofitBuilder.client(okHttpClient).build().create(OrderApiService::class.java)
+    ): UserApiService {
+        return retrofitBuilder.client(okHttpClient).build().create(UserApiService::class.java)
     }
 
 }

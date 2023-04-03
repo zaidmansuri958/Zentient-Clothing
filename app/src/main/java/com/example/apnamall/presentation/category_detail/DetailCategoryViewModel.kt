@@ -3,7 +3,6 @@ package com.example.apnamall.presentation.category_detail
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.apnamall.data.model.order.OrderResponse
 import com.example.apnamall.data.model.product.Product
 import com.example.apnamall.data.util.Resource
 import com.example.apnamall.domain.use_case.*

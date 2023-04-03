@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".presentation.bottom_sheet.BottomSheetFragment"
+    android:background="@drawable/bottom_sheet_bg">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginBottom="20dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Select Payment Method"
+            android:textColor="#C6FF00"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:layout_margin="20dp"
+            android:fontFamily="@font/aldrich"/>
+
+        <RadioGroup
+            android:id="@+id/radio_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RadioButton
+                android:id="@+id/online"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/add_to_cart_btn"
+                android:button="@drawable/add_to_cart_btn"
+                android:text="Online"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:elevation="10dp"
+                android:fontFamily="@font/aldrich"
+
+                />
+            <com.google.android.material.radiobutton.MaterialRadioButton
+                android:id="@+id/cod"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/add_to_cart_btn"
+                android:button="@drawable/add_to_cart_btn"
+                android:text="Cash On Delivery"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:elevation="10dp"
+                android:fontFamily="@font/aldrich"/>
+        </RadioGroup>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/submit_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="SUBMIT"
+            android:layout_marginTop="25dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:padding="10dp"
+            android:backgroundTint="@color/red"
+            app:cornerRadius="15dp"
+            app:elevation="10dp"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/aldrich"
+            android:textColor="@color/white"/>
+    </LinearLayout>
+</FrameLayout>

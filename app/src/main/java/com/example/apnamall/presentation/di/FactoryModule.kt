@@ -1,13 +1,13 @@
 package com.example.apnamall.presentation.di
 
-import android.app.Application
 import com.example.apnamall.domain.use_case.*
+import com.example.apnamall.presentation.bottom_sheet.BottomSheetViewModelFactory
 import com.example.apnamall.presentation.cart.CartViewModelFactory
 import com.example.apnamall.presentation.cart_item.CartItemViewModelFactory
-import com.example.apnamall.presentation.category.CategoryViewModel
 import com.example.apnamall.presentation.category.CategoryViewModelFactory
 import com.example.apnamall.presentation.category_detail.DetailCategoryViewModelFactory
 import com.example.apnamall.presentation.home.HomeViewModelFactory
+import com.example.apnamall.presentation.like.LikeViewModelFactory
 import com.example.apnamall.presentation.product_detail.ProductDetailViewModelFactory
 import com.example.apnamall.presentation.profile.ProfileFragmentViewModelFactory
 import com.example.apnamall.presentation.signin.SignInViewModelFactory
@@ -89,13 +89,16 @@ class FactoryModule {
 
     @Provides
     @Singleton
-    fun provideProductDetailViewModelFactory(submitOrderUseCase: SubmitOrderUseCase): ProductDetailViewModelFactory {
-        return ProductDetailViewModelFactory(submitOrderUseCase)
+    fun provideProductDetailViewModelFactory(
+        submitOrderUseCase: AddToCartUseCase,
+        submitLikeUseCase: SubmitLikeUseCase
+    ): ProductDetailViewModelFactory {
+        return ProductDetailViewModelFactory(submitOrderUseCase, submitLikeUseCase)
     }
 
     @Provides
     @Singleton
-    fun provideCartItemViewModelFactory(getOrderUseCase: GetOrderUseCase): CartViewModelFactory {
+    fun provideCartViewModelFactory(getOrderUseCase: GetCartUseCase): CartViewModelFactory {
         return CartViewModelFactory(getOrderUseCase)
     }
 
@@ -107,7 +110,7 @@ class FactoryModule {
 
     @Provides
     @Singleton
-    fun provideCartItemDeleteViewModelFactory(deleteOrderUseCase: DeleteOrderUseCase): CartItemViewModelFactory {
+    fun provideCartItemViewModelFactory(deleteOrderUseCase: DeleteCartItemUseCase): CartItemViewModelFactory {
         return CartItemViewModelFactory(deleteOrderUseCase)
     }
 
@@ -116,5 +119,18 @@ class FactoryModule {
     fun provideVideoViewModelFactory(getVideoUseCase: GetVideoUseCase): VideoViewModelFactory {
         return VideoViewModelFactory(getVideoUseCase)
     }
+
+    @Provides
+    @Singleton
+    fun provideLikeViewModelFactory(getLikeUseCase: GetLikeUseCase): LikeViewModelFactory {
+        return LikeViewModelFactory(getLikeUseCase)
+    }
+
+    @Provides
+    @Singleton
+    fun provideBottomSheetViewModelFactory(submitOrderUseCase: SubmitOrderUseCase): BottomSheetViewModelFactory {
+        return BottomSheetViewModelFactory(submitOrderUseCase)
+    }
+
 
 }

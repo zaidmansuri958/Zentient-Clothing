@@ -36,17 +36,54 @@
                     android:background="@drawable/add_to_cart_btn"
                     android:orientation="horizontal" />
 
-
-                <TextView
-                    android:id="@+id/name_tv"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:fontFamily="@font/advent_pro_bold"
-                    android:gravity="center"
-                    android:text="Product name"
-                    android:textColor="@color/white"
-                    android:textSize="25sp" />
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/name_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:fontFamily="@font/advent_pro_bold"
+                        android:gravity="center"
+                        android:text="Product name"
+                        android:textColor="@color/white"
+                        android:textSize="25sp" />
+
+                    <ImageView
+                        android:id="@+id/like"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:src="@drawable/like"
+                        android:layout_marginRight="20dp"
+                        android:layout_alignParentRight="true"
+                         />
+
+                    <ImageView
+                        android:id="@+id/like_anim"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_marginRight="20dp"
+                        android:visibility="invisible"
+                        android:scaleType="fitXY"
+                        android:layout_alignParentRight="true"/>
+
+                    <ImageView
+                        android:id="@+id/liked"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:src="@drawable/liked"
+                        android:layout_marginRight="20dp"
+                        android:visibility="invisible"
+                        android:layout_alignParentRight="true"
+                        />
+
+
+
+                </RelativeLayout>
+
+
 
                 <TextView
                     android:id="@+id/desc_tv"
@@ -216,6 +253,7 @@
             android:text="Add To Cart"
             android:textColor="@color/back_black"
             android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:fontFamily="@font/aldrich"/>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

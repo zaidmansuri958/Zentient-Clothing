@@ -1,7 +1,11 @@
 package com.example.apnamall.presentation.di
 
+import com.example.apnamall.data.api.UserApiService
 import com.example.apnamall.data.repository.OrderRepositoryImpl
+import com.example.apnamall.data.repository.datasource.CartRemoteDataSource
 import com.example.apnamall.data.repository.datasource.OrderRemoteDataSource
+import com.example.apnamall.data.repository.datasource.UserRemoteDataSource
+import com.example.apnamall.data.repository.datasource_impl.CartRemoteDataSourceImpl
 import com.example.apnamall.domain.repository.OrderRepository
 import dagger.Module
 import dagger.Provides
@@ -12,9 +16,11 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 class OrderRepositoryModule {
+
     @Provides
     @Singleton
-    fun provideOrderRepository(orderRemoteDataSource: OrderRemoteDataSource):OrderRepository{
+    fun provideOrderRepositoryModule(orderRemoteDataSource: OrderRemoteDataSource): OrderRepository {
         return OrderRepositoryImpl(orderRemoteDataSource)
     }
+
 }

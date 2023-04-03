@@ -20,7 +20,10 @@
                 android:id="@+id/home_viewpager"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:layout_margin="15dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="15dp"
                 android:orientation="horizontal" />
 
             <TextView
@@ -28,13 +31,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:fontFamily="@font/advent_pro_bold"
                 android:text="Top Discount Items"
-                android:textColor="@color/white"
+                android:fontFamily="@font/aldrich"
+                android:textColor="#FFEA00"
                 android:textSize="20sp"
                 android:textStyle="italic"
-                android:visibility="invisible"
-           />
+                android:visibility="invisible" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/home_discount_recycle"
@@ -47,12 +49,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:fontFamily="@font/advent_pro_bold"
                 android:text="Best Sellers"
-                android:textColor="@color/white"
+                android:fontFamily="@font/aldrich"
+                android:textColor="#FFEA00"
                 android:textSize="20sp"
                 android:textStyle="italic"
-                android:visibility="invisible"/>
+                android:visibility="invisible" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/home_bestseller_recycle"
@@ -65,12 +67,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
-                android:fontFamily="@font/advent_pro_bold"
+                android:fontFamily="@font/aldrich"
+                android:textColor="#FFEA00"
                 android:text="Men Top Items"
-                android:textColor="@color/white"
                 android:textSize="20sp"
                 android:textStyle="italic"
-                android:visibility="invisible"/>
+                android:visibility="invisible" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/home_male_recycle"
@@ -83,12 +85,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
-                android:fontFamily="@font/advent_pro_bold"
                 android:text="Women Top Items"
-                android:textColor="@color/white"
+                android:fontFamily="@font/aldrich"
+                android:textColor="#FFEA00"
                 android:textSize="20sp"
                 android:textStyle="italic"
-                android:visibility="invisible"/>
+                android:visibility="invisible" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/home_female_recycle"
@@ -109,7 +111,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-
             <include layout="@layout/shimmer_top_banner" />
 
             <include layout="@layout/shimmer_best_category_card" />

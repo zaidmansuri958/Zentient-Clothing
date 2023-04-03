@@ -35,7 +35,7 @@ class TopDiscountAdapter : RecyclerView.Adapter<DiscountViewHolder>() {
     override fun onBindViewHolder(holder: DiscountViewHolder, position: Int) {
         val topDiscountList = differ.currentList[position]
         holder.bestSellerCardBinding.name.text = topDiscountList.productName
-        holder.bestSellerCardBinding.price.text = "$ " + topDiscountList.productDiscount
+        holder.bestSellerCardBinding.price.text = topDiscountList.productDiscount
         Glide.with(holder.bestSellerCardBinding.image).load(topDiscountList.productImg1)
             .into(holder.bestSellerCardBinding.image)
 

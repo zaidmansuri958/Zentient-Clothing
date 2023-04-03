@@ -1,9 +1,7 @@
 package com.example.apnamall.presentation.di
 
-import com.example.apnamall.domain.repository.CategoryRepository
-import com.example.apnamall.domain.repository.OrderRepository
-import com.example.apnamall.domain.repository.ProductRepository
-import com.example.apnamall.domain.repository.UserRepository
+import androidx.room.Index
+import com.example.apnamall.domain.repository.*
 import com.example.apnamall.domain.use_case.*
 import dagger.Module
 import dagger.Provides
@@ -114,20 +112,20 @@ class UseCaseModule {
 
     @Provides
     @Singleton
-    fun provideGetOrderUseCase(orderRepository: OrderRepository): GetOrderUseCase {
-        return GetOrderUseCase(orderRepository)
+    fun provideGetCartUseCase(cartRepository: CartRepository): GetCartUseCase {
+        return GetCartUseCase(cartRepository)
     }
 
     @Provides
     @Singleton
-    fun provideSubmitOrderUseCase(orderRepository: OrderRepository): SubmitOrderUseCase {
-        return SubmitOrderUseCase(orderRepository)
+    fun provideAddToCartUseCase(cartRepository: CartRepository): AddToCartUseCase {
+        return AddToCartUseCase(cartRepository)
     }
 
     @Provides
     @Singleton
-    fun provideDeleteOrderUseCase(orderRepository: OrderRepository): DeleteOrderUseCase {
-        return DeleteOrderUseCase(orderRepository)
+    fun provideDeleteCartItemUseCase(cartRepository: CartRepository): DeleteCartItemUseCase {
+        return DeleteCartItemUseCase(cartRepository)
     }
 
     @Provides
@@ -138,8 +136,44 @@ class UseCaseModule {
 
     @Provides
     @Singleton
-    fun provideGetUserUseCase(orderRepository: OrderRepository): GetUserDetailUseCase {
-        return GetUserDetailUseCase(orderRepository)
+    fun provideGetUserUseCase(cartRepository: CartRepository): GetUserDetailUseCase {
+        return GetUserDetailUseCase(cartRepository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideSubmitOrderUseCase(orderRepository: OrderRepository): SubmitOrderUseCase {
+        return SubmitOrderUseCase(orderRepository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetOrderUseCase(orderRepository: OrderRepository): GetOrderUseCase {
+        return GetOrderUseCase(orderRepository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideDeleteOrderUseCase(orderRepository: OrderRepository): DeleteOrderUseCase {
+        return DeleteOrderUseCase(orderRepository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetLikeUseCase(likeRepository: LikeRepository): GetLikeUseCase {
+        return GetLikeUseCase(likeRepository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideSubmitLikeUseCase(likeRepository: LikeRepository): SubmitLikeUseCase {
+        return SubmitLikeUseCase(likeRepository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideDeleteLikeUseCase(likeRepository: LikeRepository): DeleteLikeUseCase {
+        return DeleteLikeUseCase(likeRepository)
     }
 
 

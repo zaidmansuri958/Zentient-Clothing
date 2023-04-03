@@ -49,6 +49,7 @@ class VideoFragment : Fragment() {
             when (response) {
                 is Resource.Success -> {
                     response?.data.let {
+                        it!!.shuffle()
                         binding.progressBar.isVisible = false
                         videoAdapter.differ.submitList(it)
                     }

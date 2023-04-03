@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.apnamall.R
 import com.example.apnamall.data.util.Resource
 import com.example.apnamall.data.util.TokenManager
@@ -21,6 +22,7 @@ class ProfileFragment : Fragment() {
 
     @Inject
     lateinit var viewModelFactory: ProfileFragmentViewModelFactory
+
     @Inject
     lateinit var tokenManager: TokenManager
     private lateinit var viewModel: ProfileFragmentViewModel
@@ -42,17 +44,20 @@ class ProfileFragment : Fragment() {
         binding.logout.setOnClickListener {
             tokenManager.deleteToken()
         }
+        binding.likedItems.setOnClickListener {
+            findNavController().navigate(R.id.action_profileFragment_to_likeFragment)
+        }
 
         viewModel.getUserDetails()
         viewModel.user.observe(viewLifecycleOwner, Observer { response ->
             when (response) {
                 is Resource.Success -> {
                     response.data?.let {
-                        binding.name.text = it.name
-                        binding.number.text = it.mobile_no
-                        binding.address.text = it.address
-                        binding.email.text=it.email
-                        binding.city.text=it.pincode
+                        binding.name.setText(it.name)
+                        binding.number.setText(it.mobile_no)
+                        binding.address.setText(it.address)
+                        binding.email.setText(it.email)
+                        binding.city.setText(it.pincode)
                     }
                 }
                 is Resource.Loading -> {

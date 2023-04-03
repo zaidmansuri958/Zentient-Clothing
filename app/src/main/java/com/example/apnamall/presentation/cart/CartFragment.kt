@@ -25,7 +25,7 @@ import org.json.JSONObject
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class CartFragment : Fragment(), PaymentResultListener {
+class CartFragment : Fragment() {
     @Inject
     lateinit var cartViewModelFactory: CartViewModelFactory
 
@@ -76,15 +76,21 @@ class CartFragment : Fragment(), PaymentResultListener {
         }
 
 
+
+
         binding.cartRecycle.apply {
             adapter = cartAdapter
             layoutManager = LinearLayoutManager(activity)
         }
 
         binding.orderBtn.setOnClickListener {
-            orderPay()
+            val bundle = Bundle().apply {
+                putSerializable("price", ((cartAdapter.getGrandTotal()) * 100).toString())
+            }
+            findNavController().navigate(R.id.action_cartFragment_to_bottomSheetFragment, bundle)
         }
 
+//            orderPay()
     }
 
     private fun orderPay() {
@@ -97,7 +103,7 @@ class CartFragment : Fragment(), PaymentResultListener {
             jsonobject.put("name", "Zenetian Clothing")
             jsonobject.put("description", "Test payment");
             jsonobject.put("currency", "INR")
-            jsonobject.put("amount", (cartAdapter.getGrandTotal()) * 100)
+            jsonobject.put("amount", ((cartAdapter.getGrandTotal()) * 100))
             jsonobject.put("theme.color", "#060618");
             var prefill = JSONObject()
             prefill.put("contact", "7201805489")
@@ -119,14 +125,5 @@ class CartFragment : Fragment(), PaymentResultListener {
         valueAnimator.setDuration(1000)
         valueAnimator.start()
     }
-
-    override fun onPaymentSuccess(p0: String?) {
-        Toast.makeText(activity, "Payment Successful", Toast.LENGTH_SHORT).show()
-    }
-
-    override fun onPaymentError(p0: Int, p1: String?) {
-        Log.d("PAYMENT", "something went wrong")
-    }
-
 
 }
