@@ -2,6 +2,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:id="@+id/fourites"
+        android:icon="@drawable/ic_favorite"
+        android:title="Favourites" />
+
+    <item
+        android:id="@+id/order"
+        android:icon="@drawable/ic_shopping_cart"
+        android:title="Orders" />
+
+
+    <item
         android:id="@+id/rate_us"
         android:icon="@drawable/rate_us"
         android:title="Rate Us" />
@@ -15,5 +26,11 @@
         android:id="@+id/developer"
         android:icon="@drawable/devloper"
         android:title="Developer" />
+
+
+    <item
+        android:id="@+id/logout"
+        android:icon="@drawable/ic_logout"
+        android:title="Log out" />
 
 </menu>

@@ -8,6 +8,7 @@ import com.example.apnamall.presentation.category.CategoryViewModelFactory
 import com.example.apnamall.presentation.category_detail.DetailCategoryViewModelFactory
 import com.example.apnamall.presentation.home.HomeViewModelFactory
 import com.example.apnamall.presentation.like.LikeViewModelFactory
+import com.example.apnamall.presentation.orders.OrderViewModelFactory
 import com.example.apnamall.presentation.product_detail.ProductDetailViewModelFactory
 import com.example.apnamall.presentation.profile.ProfileFragmentViewModelFactory
 import com.example.apnamall.presentation.signin.SignInViewModelFactory
@@ -91,9 +92,14 @@ class FactoryModule {
     @Singleton
     fun provideProductDetailViewModelFactory(
         submitOrderUseCase: AddToCartUseCase,
-        submitLikeUseCase: SubmitLikeUseCase
+        submitLikeUseCase: SubmitLikeUseCase,
+        likedOrNotUseCase: LikedOrNotUseCase
     ): ProductDetailViewModelFactory {
-        return ProductDetailViewModelFactory(submitOrderUseCase, submitLikeUseCase)
+        return ProductDetailViewModelFactory(
+            submitOrderUseCase,
+            submitLikeUseCase,
+            likedOrNotUseCase
+        )
     }
 
     @Provides
@@ -122,8 +128,11 @@ class FactoryModule {
 
     @Provides
     @Singleton
-    fun provideLikeViewModelFactory(getLikeUseCase: GetLikeUseCase): LikeViewModelFactory {
-        return LikeViewModelFactory(getLikeUseCase)
+    fun provideLikeViewModelFactory(
+        getLikeUseCase: GetLikeUseCase,
+        removeLikeUseCase: RemoveLikeUseCase
+    ): LikeViewModelFactory {
+        return LikeViewModelFactory(getLikeUseCase, removeLikeUseCase)
     }
 
     @Provides
@@ -132,5 +141,13 @@ class FactoryModule {
         return BottomSheetViewModelFactory(submitOrderUseCase)
     }
 
+    @Provides
+    @Singleton
+    fun provideOrderViewModelFactory(
+        getOrderUseCase: GetOrderUseCase,
+        deleteOrderUseCase: DeleteOrderUseCase
+    ): OrderViewModelFactory {
+        return OrderViewModelFactory(getOrderUseCase,deleteOrderUseCase)
+    }
 
 }

@@ -37,12 +37,4 @@ interface UserApiService {
     @GET("/user")
     suspend fun getUser():Response<User>
 
-    @GET("/liked")
-    suspend fun getLike():Response<LikeResponse>
-
-    @POST("/liked")
-    suspend fun like(@Body product: LikeRequest):Response<LikeResponseItem>
-
-    @DELETE("/liked/{likeID}")
-    suspend fun deleteLikeItem(@Path("likeID") likeId:String):Response<LikeResponseItem>
 }

@@ -9,5 +9,6 @@ data class OrderRequest(
     val productName: String?,
     val productPrice: String?,
     val quantity:String?,
-    val size: String?
+    val size: String?,
+    val status:String?,
 )

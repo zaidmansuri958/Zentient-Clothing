@@ -47,6 +47,38 @@ class CartFragment : Fragment() {
         binding = FragmentCartBinding.bind(view)
         viewModel = ViewModelProvider(this, cartViewModelFactory).get(CartViewModel::class.java)
         viewModel.getCartItem()
+
+        provideObserver()
+
+        cartAdapter.setOnItemClickListner {
+            val bundle = Bundle().apply {
+                putSerializable("selected_cart_item", it)
+            }
+            findNavController().navigate(R.id.action_cartFragment_to_cartItemFragment, bundle)
+        }
+
+        binding.cartRecycle.apply {
+            adapter = cartAdapter
+            layoutManager = LinearLayoutManager(activity)
+        }
+
+        binding.orderBtn.setOnClickListener {
+            val bundle = Bundle().apply {
+                putSerializable("price", ((cartAdapter.getGrandTotal()) * 100).toString())
+            }
+            findNavController().navigate(R.id.action_cartFragment_to_bottomSheetFragment, bundle)
+        }
+    }
+
+    private fun setPriceAnim() {
+        val valueAnimator = ValueAnimator.ofInt(0, cartAdapter.getGrandTotal())
+        valueAnimator.addUpdateListener {
+            binding.priceTv.text = "$ " + valueAnimator.animatedValue.toString()
+        }
+        valueAnimator.setDuration(1000)
+        valueAnimator.start()
+    }
+    private fun provideObserver() {
         viewModel.cartItem.observe(viewLifecycleOwner, Observer { response ->
             when (response) {
                 is Resource.Success -> {
@@ -67,63 +99,6 @@ class CartFragment : Fragment() {
                 }
             }
         })
-
-        cartAdapter.setOnItemClickListner {
-            val bundle = Bundle().apply {
-                putSerializable("selected_cart_item", it)
-            }
-            findNavController().navigate(R.id.action_cartFragment_to_cartItemFragment, bundle)
-        }
-
-
-
-
-        binding.cartRecycle.apply {
-            adapter = cartAdapter
-            layoutManager = LinearLayoutManager(activity)
-        }
-
-        binding.orderBtn.setOnClickListener {
-            val bundle = Bundle().apply {
-                putSerializable("price", ((cartAdapter.getGrandTotal()) * 100).toString())
-            }
-            findNavController().navigate(R.id.action_cartFragment_to_bottomSheetFragment, bundle)
-        }
-
-//            orderPay()
-    }
-
-    private fun orderPay() {
-        var checkout = Checkout()
-        var jsonobject = JSONObject()
-        checkout.setKeyID("rzp_test_v276RMjWgQ5MHe");
-        checkout.setImage(R.drawable.sample)
-
-        try {
-            jsonobject.put("name", "Zenetian Clothing")
-            jsonobject.put("description", "Test payment");
-            jsonobject.put("currency", "INR")
-            jsonobject.put("amount", ((cartAdapter.getGrandTotal()) * 100))
-            jsonobject.put("theme.color", "#060618");
-            var prefill = JSONObject()
-            prefill.put("contact", "7201805489")
-            prefill.put("email", "zaidmansuri.@gmail.com")
-            jsonobject.put("prefill", prefill)
-
-            checkout.open(activity, jsonobject)
-
-        } catch (ex: JSONException) {
-            Log.d("PAYMENT", ex.printStackTrace().toString())
-        }
-    }
-
-    private fun setPriceAnim() {
-        val valueAnimator = ValueAnimator.ofInt(0, cartAdapter.getGrandTotal())
-        valueAnimator.addUpdateListener {
-            binding.priceTv.text = "$ " + valueAnimator.animatedValue.toString()
-        }
-        valueAnimator.setDuration(1000)
-        valueAnimator.start()
     }
 
 }

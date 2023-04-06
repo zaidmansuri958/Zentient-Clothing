@@ -48,52 +48,12 @@ class BottomSheetFragment : BottomSheetDialogFragment(), PaymentResultListener {
             this,
             bottomSheetViewModelFactory
         ).get(BottomSheetViewModel::class.java)
+
         setOnCheckedChangeListener()
+
         binding.submitBtn.setOnClickListener {
-            if (paymentType == null) {
-                Toast.makeText(activity, "Please select payment method", Toast.LENGTH_SHORT).show()
-            } else {
-                if (paymentType.equals("Online")) {
-                    orderPay()
-                } else {
-                    for (i in cartAdapter.differ.currentList) {
-                        viewModel.submitOrder(
-                            OrderRequest(
-                                i.productDesc,
-                                i.productID,
-                                i.productImg1,
-                                i.productImg2,
-                                i.productImg3,
-                                i.productName,
-                                i.productPrice,
-                                i.quantity,
-                                i.size
-                            )
-                        )
-                    }
-                }
-                viewModel.submitOrder.observe(viewLifecycleOwner, Observer { response ->
-                    when (response) {
-                        is Resource.Success -> {
-                            Toast.makeText(activity, "Successfully completed", Toast.LENGTH_SHORT)
-                                .show()
-                        }
-                        is Resource.Loading -> {
-                            Toast.makeText(activity, "Loading", Toast.LENGTH_SHORT).show()
-                        }
-                        is Resource.Error -> {
-                            Toast.makeText(
-                                activity,
-                                response.message.toString(),
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
-                    }
-                })
-            }
-
+            paymentProcess()
         }
-
     }
 
     private fun setOnCheckedChangeListener() {
@@ -107,7 +67,7 @@ class BottomSheetFragment : BottomSheetDialogFragment(), PaymentResultListener {
         }
     }
 
-    private fun orderPay() {
+    private fun onlinePay() {
         var checkout = Checkout()
         var jsonobject = JSONObject()
         checkout.setKeyID("rzp_test_v276RMjWgQ5MHe");
@@ -131,6 +91,55 @@ class BottomSheetFragment : BottomSheetDialogFragment(), PaymentResultListener {
         }
     }
 
+    private fun offlinePay() {
+        for (i in cartAdapter.differ.currentList) {
+            viewModel.submitOrder(
+                OrderRequest(
+                    i.productDesc,
+                    i.productID,
+                    i.productImg1,
+                    i.productImg2,
+                    i.productImg3,
+                    i.productName,
+                    i.productPrice,
+                    i.quantity,
+                    i.size,
+                    "Pick Up"
+                )
+            )
+        }
+    }
+
+    private fun paymentProcess() {
+        if (paymentType == null) {
+            Toast.makeText(activity, "Please select payment method", Toast.LENGTH_SHORT).show()
+        } else {
+            if (paymentType.equals("Online")) {
+                onlinePay()
+            } else {
+                offlinePay()
+            }
+            viewModel.submitOrder.observe(viewLifecycleOwner, Observer { response ->
+                when (response) {
+                    is Resource.Success -> {
+                        Toast.makeText(activity, "Successfully completed", Toast.LENGTH_SHORT)
+                            .show()
+                    }
+                    is Resource.Loading -> {
+                        Toast.makeText(activity, "Loading", Toast.LENGTH_SHORT).show()
+                    }
+                    is Resource.Error -> {
+                        Toast.makeText(
+                            activity,
+                            response.message.toString(),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+            })
+        }
+    }
+
     override fun onPaymentSuccess(p0: String?) {
         Toast.makeText(activity, "Payment Successful", Toast.LENGTH_SHORT).show()
     }
@@ -138,4 +147,6 @@ class BottomSheetFragment : BottomSheetDialogFragment(), PaymentResultListener {
     override fun onPaymentError(p0: Int, p1: String?) {
         Log.d("PAYMENT", "something went wrong")
     }
+
+
 }

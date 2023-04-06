@@ -9,13 +9,13 @@ import com.example.apnamall.domain.use_case.DeleteCartItemUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class CartItemViewModel(private val deleteOrderUseCase: DeleteCartItemUseCase) : ViewModel() {
-    val deleteOrder: MutableLiveData<Resource<CartResponseItem>> = MutableLiveData()
+class CartItemViewModel(private val deleteCartItemUseCase: DeleteCartItemUseCase) : ViewModel() {
+    val removeCart: MutableLiveData<Resource<CartResponseItem>> = MutableLiveData()
 
-    fun deleteOrder(orderId: String) {
+    fun removeCart(orderId: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            val apiResult=deleteOrderUseCase.execute(orderId)
-            deleteOrder.postValue(apiResult)
+            val apiResult=deleteCartItemUseCase.execute(orderId)
+            removeCart.postValue(apiResult)
         }
     }
 }

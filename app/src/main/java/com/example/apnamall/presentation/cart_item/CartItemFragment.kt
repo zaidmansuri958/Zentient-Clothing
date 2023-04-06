@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.example.apnamall.R
+import com.example.apnamall.data.model.cart.CartResponseItem
 import com.example.apnamall.data.util.Resource
 import com.example.apnamall.databinding.FragmentCartItemBinding
 import com.example.apnamall.presentation.product_detail.ProductDetailFragmentArgs
@@ -38,23 +39,20 @@ class CartItemFragment : Fragment() {
         viewModel =
             ViewModelProvider(this, cartItemViewModelFactory).get(CartItemViewModel::class.java)
 
-        val args:CartItemFragmentArgs by navArgs()
+        val args: CartItemFragmentArgs by navArgs()
         val product = args.selectedCartItem
-        Glide.with(binding.productImg).load(product.productImg1).into(binding.productImg)
-        binding.nameTv.text = product.productName
-        binding.descTv.text = product.productDesc
-        binding.priceTv.text = "$ "+product.productPrice
-        binding.sizeTv.text="Size :"+product.size
-        binding.quantityTv.text="Quantity :"+product.quantity
-        binding.removeBtn.setOnClickListener{
-            viewModel.deleteOrder(product._id)
+
+        setProduct(product)
+
+        binding.removeBtn.setOnClickListener {
+            viewModel.removeCart(product._id)
         }
 
-        viewModel.deleteOrder.observe(viewLifecycleOwner, Observer { response ->
+        viewModel.removeCart.observe(viewLifecycleOwner, Observer { response ->
             when (response) {
                 is Resource.Success -> {
                     response.data?.let {
-                        Toast.makeText(activity, response.data.toString(), Toast.LENGTH_LONG)
+                        Toast.makeText(activity, "Remove Successfully", Toast.LENGTH_LONG)
                             .show()
                     }
                 }
@@ -68,5 +66,14 @@ class CartItemFragment : Fragment() {
             }
         })
 
+    }
+
+    private fun setProduct(product: CartResponseItem) {
+        Glide.with(binding.productImg).load(product.productImg1).into(binding.productImg)
+        binding.nameTv.text = product.productName
+        binding.descTv.text = product.productDesc
+        binding.priceTv.text = "$ " + product.productPrice
+        binding.sizeTv.text = "Size :" + product.size
+        binding.quantityTv.text = "Quantity :" + product.quantity
     }
 }

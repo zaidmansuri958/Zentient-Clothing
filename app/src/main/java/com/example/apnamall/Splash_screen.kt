@@ -20,7 +20,7 @@ class Splash_screen : AppCompatActivity() {
         setContentView(R.layout.activity_splash_screen)
         val imageView = findViewById<ImageView>(R.id.img)
         Glide.with(this).asGif()
-            .load("https://firebasestorage.googleapis.com/v0/b/apna-mall-96730.appspot.com/o/Zentient%20Clothing.gif?alt=media&token=3e1abed0-94e4-4d0e-8cda-429fd7000406")
+            .load(R.drawable.logo_anim)
             .into(imageView)
         Handler(Looper.getMainLooper()).postDelayed({
             if (tokenManager.getToken() != null) {
@@ -30,6 +30,6 @@ class Splash_screen : AppCompatActivity() {
                 val intent = Intent(this, RegisterActivity::class.java)
                 startActivity(intent)
             }
-        }, 3000)
+        }, 4500)
     }
 }

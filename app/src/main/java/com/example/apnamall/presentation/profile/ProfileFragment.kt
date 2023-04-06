@@ -48,6 +48,10 @@ class ProfileFragment : Fragment() {
             findNavController().navigate(R.id.action_profileFragment_to_likeFragment)
         }
 
+        binding.myOrders.setOnClickListener {
+            findNavController().navigate(R.id.action_profileFragment_to_orderFragment)
+        }
+
         viewModel.getUserDetails()
         viewModel.user.observe(viewLifecycleOwner, Observer { response ->
             when (response) {

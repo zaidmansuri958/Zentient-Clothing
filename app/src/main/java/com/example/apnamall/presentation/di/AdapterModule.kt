@@ -73,10 +73,17 @@ class AdapterModule {
     fun provideViewPagerAdapter(): ProductViewPagerAdapter {
         return ProductViewPagerAdapter()
     }
+
     @Provides
     @Singleton
     fun provideLikeAdapter(): LikeAdapter {
         return LikeAdapter()
+    }
+
+    @Provides
+    @Singleton
+    fun provideOrderAdapter(): OrderAdapter {
+        return OrderAdapter()
     }
 
 

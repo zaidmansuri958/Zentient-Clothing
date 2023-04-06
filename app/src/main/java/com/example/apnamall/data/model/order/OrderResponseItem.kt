@@ -12,5 +12,6 @@ data class OrderResponseItem(
     val productPrice: String,
     val size: String,
     val quantity:String,
-    val userID: String
+    val userID: String,
+    val status:String,
 ):java.io.Serializable

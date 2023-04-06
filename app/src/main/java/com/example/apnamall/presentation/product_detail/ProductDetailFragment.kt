@@ -21,10 +21,15 @@ import com.example.apnamall.R
 import com.example.apnamall.data.model.Size
 import com.example.apnamall.data.model.like.LikeRequest
 import com.example.apnamall.data.model.cart.CartRequest
+import com.example.apnamall.data.model.product.Product
+import com.example.apnamall.data.model.product.ProductItem
 import com.example.apnamall.data.util.Resource
 import com.example.apnamall.databinding.FragmentProductDetailBinding
 import com.example.apnamall.presentation.adapter.product.ProductViewPagerAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -78,6 +83,8 @@ class ProductDetailFragment : Fragment() {
         showCounter()
 
 
+        setLikeBtn(product._id!!)
+
         binding.increase.setOnClickListener {
             viewModel.increaseCounter()
             showCounter()
@@ -126,6 +133,7 @@ class ProductDetailFragment : Fragment() {
 
             viewModel.submitLike(
                 LikeRequest(
+                    product._id!!,
                     product.productDesc,
                     product.productID,
                     product.productImg1,
@@ -134,37 +142,19 @@ class ProductDetailFragment : Fragment() {
                     product.productName,
                     product.productPrice,
                     viewModel.counter.toString(),
-                    Size(
-                        product.Size!!.one.toString(),
-                        product.Size!!.two.toString(),
-                        product.Size!!.three.toString(),
-                        product.Size!!.four.toString()
-                    )
+                    "7"
+//                    Size(
+//                        product.Size!!.one.toString(),
+//                        product.Size!!.two.toString(),
+//                        product.Size!!.three.toString(),
+//                        product.Size!!.four.toString()
+//                    )
                 )
             )
 
-            viewModel.submitLike.observe(viewLifecycleOwner, Observer { response ->
-                when (response) {
-                    is Resource.Success -> {
-                        response.data?.let {
-                            Toast.makeText(
-                                activity,
-                                response.data.toString(),
-                                Toast.LENGTH_LONG
-                            )
-                                .show()
-                        }
-                    }
-                    is Resource.Loading -> {
-                        Toast.makeText(activity, "Loading", Toast.LENGTH_SHORT).show()
-                    }
-                    is Resource.Error -> {
-                        Toast.makeText(activity, response.message.toString(), Toast.LENGTH_LONG)
-                            .show()
-                    }
-                }
 
-            })
+            Toast.makeText(activity, "Liked SuccessFully", Toast.LENGTH_SHORT).show()
+
 
         }
 
@@ -238,6 +228,16 @@ class ProductDetailFragment : Fragment() {
         }
         valueAnimator.setDuration(1500)
         valueAnimator.start()
+    }
+
+    private fun setLikeBtn(productId:String){
+        viewModel.chekLikedOrNot(productId)
+        if (viewModel.isExistOrNot == true) {
+            binding.liked.visibility = View.VISIBLE
+        }
+        else{
+            binding.like.visibility=View.VISIBLE
+        }
     }
 
 

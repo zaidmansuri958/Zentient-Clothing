@@ -1,48 +1,50 @@
 package com.example.apnamall.data.repository
 
 import com.example.apnamall.data.model.like.LikeRequest
-import com.example.apnamall.data.model.like.LikeResponse
-import com.example.apnamall.data.model.like.LikeResponseItem
-import com.example.apnamall.data.repository.datasource.LikeRemoteDataSource
-import com.example.apnamall.data.util.Resource
+import com.example.apnamall.data.repository.datasource.LikeLocalDataSource
 import com.example.apnamall.domain.repository.LikeRepository
-import org.json.JSONObject
-import retrofit2.Response
+import kotlinx.coroutines.flow.Flow
 
-class LikeRepositoryImpl(private val likeRemoteDataSource: LikeRemoteDataSource) : LikeRepository {
-    override suspend fun getLike(): Resource<LikeResponse> {
-        return responseToResource(likeRemoteDataSource.getLike())
+class LikeRepositoryImpl(private val likeLocalDataSource: LikeLocalDataSource) : LikeRepository {
+    override fun getLike(): Flow<List<LikeRequest>> {
+        return likeLocalDataSource.getLike()
     }
 
-    override suspend fun like(product: LikeRequest): Resource<LikeResponseItem> {
-        return responseToResourceOrderResponseItem(likeRemoteDataSource.like(product))
+
+    override suspend fun like(product: LikeRequest) {
+        likeLocalDataSource.insertLike(product)
     }
 
-    override suspend fun deleteLike(likeId: String): Resource<LikeResponseItem> {
-        return responseToResourceOrderResponseItem(likeRemoteDataSource.deleteLike(likeId))
+    override suspend fun likedOrNot(productId: String): Boolean {
+        return likeLocalDataSource.likedOrNot(productId)
     }
 
-    private fun responseToResourceOrderResponseItem(response: Response<LikeResponseItem>): Resource<LikeResponseItem> {
-        if (response.isSuccessful) {
-            response.body()?.let { result ->
-                return Resource.Success(result)
-            }
-        } else if (response.errorBody() != null) {
-            val errorObj = JSONObject(response.errorBody()!!.charStream().readText())
-            return Resource.Error(errorObj.getString("message"))
-        }
-        return Resource.Error("Something went wronggg")
+    override suspend fun removeLike(productId: String) {
+        likeLocalDataSource.removeLike(productId)
     }
 
-    private fun responseToResource(response: Response<LikeResponse>): Resource<LikeResponse> {
-        if (response.isSuccessful) {
-            response.body()?.let { result ->
-                return Resource.Success(result)
-            }
-        } else if (response.errorBody() != null) {
-            val errorObj = JSONObject(response.errorBody()!!.charStream().readText())
-            return Resource.Error(errorObj.getString("message"))
-        }
-        return Resource.Error("Something went wrong")
-    }
+
+//    private fun responseToResourceOrderResponseItem(response: Response<LikeResponseItem>): Resource<LikeResponseItem> {
+//        if (response.isSuccessful) {
+//            response.body()?.let { result ->
+//                return Resource.Success(result)
+//            }
+//        } else if (response.errorBody() != null) {
+//            val errorObj = JSONObject(response.errorBody()!!.charStream().readText())
+//            return Resource.Error(errorObj.getString("message"))
+//        }
+//        return Resource.Error("Something went wronggg")
+//    }
+//
+//    private fun responseToResource(response: Response<LikeResponse>): Resource<LikeResponse> {
+//        if (response.isSuccessful) {
+//            response.body()?.let { result ->
+//                return Resource.Success(result)
+//            }
+//        } else if (response.errorBody() != null) {
+//            val errorObj = JSONObject(response.errorBody()!!.charStream().readText())
+//            return Resource.Error(errorObj.getString("message"))
+//        }
+//        return Resource.Error("Something went wrong")
+//    }
 }

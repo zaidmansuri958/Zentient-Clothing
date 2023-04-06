@@ -19,7 +19,9 @@
             android:text="Category name"
             android:textColor="@color/white"
             android:textSize="22sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:padding="10dp"
+            android:fontFamily="@font/aldrich"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/category_detail_recycle"

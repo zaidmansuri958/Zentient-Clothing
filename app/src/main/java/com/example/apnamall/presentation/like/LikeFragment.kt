@@ -1,5 +1,7 @@
 package com.example.apnamall.presentation.like
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,6 +11,7 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.apnamall.R
 import com.example.apnamall.data.util.Resource
@@ -40,26 +43,21 @@ class LikeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentLikeBinding.bind(view)
         viewModel = ViewModelProvider(this, likeViewModelFactory).get(LikeViewModel::class.java)
-        viewModel.getLikeItem()
         binding.likeRecycle.apply {
             adapter = likeAdapter
             layoutManager = LinearLayoutManager(requireContext())
         }
-        viewModel.likeItem.observe(viewLifecycleOwner, Observer { response ->
-            when (response) {
-                is Resource.Success -> {
-                    response.data?.let {
-                        likeAdapter.differ.submitList(it.toList())
-                    }
-                }
-                is Resource.Loading -> {
-                    Toast.makeText(activity, "Loading", Toast.LENGTH_SHORT).show()
-                }
-                is Resource.Error -> {
-                    Toast.makeText(activity, response.message.toString(), Toast.LENGTH_LONG)
-                        .show()
-                }
+        likeAdapter.setOnLikeClickListner {
+            viewModel.removeLike(it)
+        }
+        likeAdapter.setOnItemClickListner {
+            val bundle = Bundle().apply {
+                putSerializable("selected_item", it)
             }
+            findNavController().navigate(R.id.action_likeFragment_to_productDetailFragment, bundle)
+        }
+        viewModel.getLiked().observe(viewLifecycleOwner, {
+            likeAdapter.differ.submitList(it)
         })
     }
 }

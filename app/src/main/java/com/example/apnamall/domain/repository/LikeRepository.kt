@@ -1,12 +1,13 @@
 package com.example.apnamall.domain.repository
 
 import com.example.apnamall.data.model.like.LikeRequest
-import com.example.apnamall.data.model.like.LikeResponse
-import com.example.apnamall.data.model.like.LikeResponseItem
-import com.example.apnamall.data.util.Resource
+import kotlinx.coroutines.flow.Flow
 
 interface LikeRepository {
-    suspend fun getLike(): Resource<LikeResponse>
-    suspend fun like(product: LikeRequest): Resource<LikeResponseItem>
-    suspend fun deleteLike(likeId: String): Resource<LikeResponseItem>
+    fun getLike(): Flow<List<LikeRequest>>
+    suspend fun like(product: LikeRequest)
+    suspend fun likedOrNot(productId:String):Boolean
+
+    suspend fun removeLike(productId: String)
+
 }

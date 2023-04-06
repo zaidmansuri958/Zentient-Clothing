@@ -172,9 +172,16 @@ class UseCaseModule {
 
     @Provides
     @Singleton
-    fun provideDeleteLikeUseCase(likeRepository: LikeRepository): DeleteLikeUseCase {
-        return DeleteLikeUseCase(likeRepository)
+    fun provideLikedOrNotUseCase(likeRepository: LikeRepository): LikedOrNotUseCase {
+        return LikedOrNotUseCase(likeRepository)
     }
+
+    @Provides
+    @Singleton
+    fun provideRemoveLikeUseCase(likeRepository: LikeRepository):RemoveLikeUseCase{
+        return RemoveLikeUseCase(likeRepository)
+    }
+
 
 
 }

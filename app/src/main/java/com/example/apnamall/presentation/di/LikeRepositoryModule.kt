@@ -1,7 +1,7 @@
 package com.example.apnamall.presentation.di
 
 import com.example.apnamall.data.repository.LikeRepositoryImpl
-import com.example.apnamall.data.repository.datasource.LikeRemoteDataSource
+import com.example.apnamall.data.repository.datasource.LikeLocalDataSource
 import com.example.apnamall.domain.repository.LikeRepository
 import dagger.Module
 import dagger.Provides
@@ -15,7 +15,7 @@ import javax.inject.Singleton
 class LikeRepositoryModule {
     @Provides
     @Singleton
-    fun provideLikeRepository(likeRemoteDataSource: LikeRemoteDataSource): LikeRepository {
-        return LikeRepositoryImpl(likeRemoteDataSource)
+    fun provideLikeRepository(likeLocalDataSource: LikeLocalDataSource): LikeRepository {
+        return LikeRepositoryImpl(likeLocalDataSource)
     }
 }

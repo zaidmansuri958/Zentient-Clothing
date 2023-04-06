@@ -14,9 +14,9 @@
             android:id="@+id/action_homeFragment_to_productDetailFragment"
             app:destination="@id/productDetailFragment"
             app:enterAnim="@anim/left"
-            app:exitAnim="@anim/left"
+            app:exitAnim="@anim/right"
             app:popEnterAnim="@anim/left"
-            app:popExitAnim="@anim/left" />
+            app:popExitAnim="@anim/right" />
     </fragment>
     <fragment
         android:id="@+id/categoryFragment"
@@ -36,7 +36,7 @@
         android:id="@+id/cartFragment"
         android:name="com.example.apnamall.presentation.cart.CartFragment"
         android:label="fragment_cart"
-        tools:layout="@layout/fragment_cart" >
+        tools:layout="@layout/fragment_cart">
         <action
             android:id="@+id/action_cartFragment_to_cartItemFragment"
             app:destination="@id/cartItemFragment" />
@@ -48,10 +48,21 @@
         android:id="@+id/profileFragment"
         android:name="com.example.apnamall.presentation.profile.ProfileFragment"
         android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile" >
+        tools:layout="@layout/fragment_profile">
         <action
             android:id="@+id/action_profileFragment_to_likeFragment"
-            app:destination="@id/likeFragment" />
+            app:destination="@id/likeFragment"
+            app:enterAnim="@anim/left"
+            app:exitAnim="@anim/right"
+            app:popEnterAnim="@anim/left"
+            app:popExitAnim="@anim/right" />
+        <action
+            android:id="@+id/action_profileFragment_to_orderFragment"
+            app:destination="@id/orderFragment"
+            app:enterAnim="@anim/left"
+            app:exitAnim="@anim/right"
+            app:popEnterAnim="@anim/left"
+            app:popExitAnim="@anim/right" />
     </fragment>
     <fragment
         android:id="@+id/productDetailFragment"
@@ -79,7 +90,7 @@
         android:id="@+id/cartItemFragment"
         android:name="com.example.apnamall.presentation.cart_item.CartItemFragment"
         android:label="fragment_cart_item"
-        tools:layout="@layout/fragment_cart_item" >
+        tools:layout="@layout/fragment_cart_item">
         <argument
             android:name="selected_cart_item"
             app:argType="com.example.apnamall.data.model.cart.CartResponseItem" />
@@ -88,23 +99,36 @@
         android:id="@+id/videoFragment"
         android:name="com.example.apnamall.presentation.video.VideoFragment"
         android:label="fragment_video"
-        tools:layout="@layout/fragment_video" >
+        tools:layout="@layout/fragment_video">
         <action
             android:id="@+id/action_videoFragment_to_productDetailFragment"
-            app:destination="@id/productDetailFragment" />
+            app:destination="@id/productDetailFragment"
+            app:enterAnim="@anim/left"
+            app:exitAnim="@anim/right"
+            app:popEnterAnim="@anim/left"
+            app:popExitAnim="@anim/right" />
     </fragment>
     <fragment
         android:id="@+id/likeFragment"
         android:name="com.example.apnamall.presentation.like.LikeFragment"
         android:label="fragment_like"
-        tools:layout="@layout/fragment_like" />
+        tools:layout="@layout/fragment_like" >
+        <action
+            android:id="@+id/action_likeFragment_to_productDetailFragment"
+            app:destination="@id/productDetailFragment" />
+    </fragment>
     <dialog
         android:id="@+id/bottomSheetFragment"
         android:name="com.example.apnamall.presentation.bottom_sheet.BottomSheetFragment"
         android:label="fragment_bottom_sheet"
-        tools:layout="@layout/fragment_bottom_sheet" >
+        tools:layout="@layout/fragment_bottom_sheet">
         <argument
             android:name="order_items"
             app:argType="com.example.apnamall.data.model.cart.CartResponse" />
     </dialog>
+    <fragment
+        android:id="@+id/orderFragment"
+        android:name="com.example.apnamall.presentation.orders.OrderFragment"
+        android:label="fragment_order"
+        tools:layout="@layout/fragment_order" />
 </navigation>
