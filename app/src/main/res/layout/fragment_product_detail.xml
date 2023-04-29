@@ -38,53 +38,28 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="20dp">
 
                     <TextView
                         android:id="@+id/name_tv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
                         android:fontFamily="@font/advent_pro_bold"
-                        android:gravity="center"
+                        android:gravity="center_horizontal"
                         android:text="Product name"
                         android:textColor="@color/white"
                         android:textSize="25sp" />
 
                     <ImageView
                         android:id="@+id/like"
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
-                        android:src="@drawable/like"
-                        android:layout_marginRight="20dp"
-                        android:layout_alignParentRight="true"
-                        android:visibility="invisible"
-                         />
-
-                    <ImageView
-                        android:id="@+id/like_anim"
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
-                        android:layout_marginRight="20dp"
-                        android:visibility="invisible"
-                        android:scaleType="fitXY"
-                        android:layout_alignParentRight="true"/>
-
-                    <ImageView
-                        android:id="@+id/liked"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:src="@drawable/liked"
-                        android:layout_marginRight="30dp"
-                        android:visibility="invisible"
-                        android:layout_marginTop="10dp"
                         android:layout_alignParentRight="true"
-                        />
-
-
+                        android:layout_marginRight="20dp"
+                        android:src="@drawable/like" />
 
                 </RelativeLayout>
-
 
 
                 <TextView
@@ -96,7 +71,8 @@
                     android:layout_marginRight="10dp"
                     android:text="description"
                     android:textColor="@color/white"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:fontFamily="@font/aldrich"/>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -106,7 +82,8 @@
                     android:layout_marginRight="10dp"
                     android:text="Select Size "
                     android:textColor="@color/white"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:fontFamily="@font/aldrich"/>
 
                 <RadioGroup
                     android:id="@+id/radio_group"
@@ -173,6 +150,7 @@
 
 
                 </RadioGroup>
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -182,6 +160,7 @@
                     android:text="Select Quantity "
                     android:textColor="@color/white"
                     android:textSize="16sp" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -192,10 +171,10 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
                         android:backgroundTint="#C6FF00"
+                        android:padding="10dp"
                         android:text="-"
                         android:textColor="@color/back_black"
-                        android:textSize="20sp"
-                        android:padding="10dp"/>
+                        android:textSize="20sp" />
 
                     <TextView
                         android:id="@+id/counter"
@@ -212,10 +191,10 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
                         android:backgroundTint="#C6FF00"
+                        android:padding="10dp"
                         android:text="+"
                         android:textColor="@color/back_black"
-                        android:textSize="20sp"
-                        android:padding="10dp"/>
+                        android:textSize="20sp" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -251,11 +230,11 @@
             android:layout_height="wrap_content"
             android:layout_gravity="right"
             android:layout_marginRight="20dp"
+            android:fontFamily="@font/aldrich"
             android:padding="10dp"
             android:text="Add To Cart"
             android:textColor="@color/back_black"
             android:textSize="20sp"
-            android:textStyle="bold"
-            android:fontFamily="@font/aldrich"/>
+            android:textStyle="bold" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

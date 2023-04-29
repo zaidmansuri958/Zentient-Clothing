@@ -93,12 +93,14 @@ class FactoryModule {
     fun provideProductDetailViewModelFactory(
         submitOrderUseCase: AddToCartUseCase,
         submitLikeUseCase: SubmitLikeUseCase,
-        likedOrNotUseCase: LikedOrNotUseCase
+        likedOrNotUseCase: LikedOrNotUseCase,
+        removeLikeUseCase: RemoveLikeUseCase
     ): ProductDetailViewModelFactory {
         return ProductDetailViewModelFactory(
             submitOrderUseCase,
             submitLikeUseCase,
-            likedOrNotUseCase
+            likedOrNotUseCase,
+            removeLikeUseCase
         )
     }
 

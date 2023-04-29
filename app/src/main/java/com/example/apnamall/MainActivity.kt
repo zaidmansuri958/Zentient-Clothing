@@ -85,6 +85,5 @@ class MainActivity : AppCompatActivity(), PaymentResultListener, OnNavigationIte
         } else {
             super.onBackPressed()
         }
-
     }
 }

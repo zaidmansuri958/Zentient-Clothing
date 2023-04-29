@@ -29,6 +29,7 @@ import com.example.apnamall.presentation.adapter.product.ProductViewPagerAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -82,7 +83,6 @@ class ProductDetailFragment : Fragment() {
         productViewPagerAdapter.differ.submitList(list)
         showCounter()
 
-
         setLikeBtn(product._id!!)
 
         binding.increase.setOnClickListener {
@@ -105,64 +105,13 @@ class ProductDetailFragment : Fragment() {
         }
 
         binding.like.setOnClickListener {
-            binding.like.visibility = View.INVISIBLE
-            binding.likeAnim.visibility = View.VISIBLE
-            Glide.with(binding.likeAnim).asGif().load(R.drawable.like_anim)
-                .addListener(object : RequestListener<GifDrawable> {
-                    override fun onLoadFailed(
-                        e: GlideException?,
-                        model: Any?,
-                        target: Target<GifDrawable>?,
-                        isFirstResource: Boolean
-                    ): Boolean {
-                        return false
-                    }
-
-                    override fun onResourceReady(
-                        resource: GifDrawable?,
-                        model: Any?,
-                        target: Target<GifDrawable>?,
-                        dataSource: DataSource?,
-                        isFirstResource: Boolean
-                    ): Boolean {
-                        resource!!.setLoopCount(1)
-                        return false
-                    }
-                }).into(binding.likeAnim)
-
-
-            viewModel.submitLike(
-                LikeRequest(
-                    product._id!!,
-                    product.productDesc,
-                    product.productID,
-                    product.productImg1,
-                    product.productImg2,
-                    product.productImg3,
-                    product.productName,
-                    product.productPrice,
-                    viewModel.counter.toString(),
-                    "7"
-//                    Size(
-//                        product.Size!!.one.toString(),
-//                        product.Size!!.two.toString(),
-//                        product.Size!!.three.toString(),
-//                        product.Size!!.four.toString()
-//                    )
-                )
-            )
-
-
-            Toast.makeText(activity, "Liked SuccessFully", Toast.LENGTH_SHORT).show()
-
-
+            setLikeClick(product)
         }
 
         binding.orderBtn.setOnClickListener {
             if (productSize.isNullOrEmpty()) {
                 Toast.makeText(activity, "Please select Product Size", Toast.LENGTH_LONG).show()
             } else {
-
                 viewModel.submitOrder(
                     CartRequest(
                         product.productDesc,
@@ -230,15 +179,41 @@ class ProductDetailFragment : Fragment() {
         valueAnimator.start()
     }
 
-    private fun setLikeBtn(productId:String){
-        viewModel.chekLikedOrNot(productId)
-        if (viewModel.isExistOrNot == true) {
-            binding.liked.visibility = View.VISIBLE
-        }
-        else{
-            binding.like.visibility=View.VISIBLE
+    private fun setLikeBtn(productId: String) {
+        GlobalScope.launch(Dispatchers.Main) {
+            viewModel.chekLikedOrNot(productId)
+            if (viewModel.isExistOrNot == true) {
+                binding.like.setImageResource(R.drawable.liked)
+            } else {
+                binding.like.setImageResource(R.drawable.like)
+            }
         }
     }
 
+    private fun setLikeClick(product: ProductItem) {
+        GlobalScope.launch(Dispatchers.Main) {
+            viewModel.chekLikedOrNot(product._id!!)
+            if (viewModel.isExistOrNot != true) {
+                viewModel.submitLike(
+                    LikeRequest(
+                        product._id!!,
+                        product.productDesc,
+                        product.productID,
+                        product.productImg1,
+                        product.productImg2,
+                        product.productImg3,
+                        product.productName,
+                        product.productPrice,
+                        viewModel.counter.toString(),
+                        "7"
+                    )
+                )
+                binding.like.setImageResource(R.drawable.liked)
+            } else {
+                viewModel.removeLike(product._id!!)
+                binding.like.setImageResource(R.drawable.like)
+            }
+        }
 
+    }
 }
